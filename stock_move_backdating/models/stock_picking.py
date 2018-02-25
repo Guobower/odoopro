@@ -8,7 +8,7 @@ class StockPicking(models.Model):
 
     _inherit = 'stock.picking'
 
-    date_done = fields.Datetime('Date of Transfer', copy=False, readonly=False,
+    date_done = fields.Datetime('Date of Transfer', copy=False, readonly=False,states={'done': [('readonly', True)]},
                                 help="Completion Date of Transfer")
 
     @api.constrains('date_done')
