@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="product_variant_history_form" model="ir.ui.view">
+            <field name="name">product.variant.history.form</field>
+            <field name="model">product.variant.history</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Product Purchase History">
+                    <sheet>
+                        <group>
+                            <field name="product_id"/>
+                            <field name="uom_id"/>
+                            <field name="product_tmpl_id"/>
+                        </group>
+                        <group>
+                            <field name="value"/>
+                            <field name="effective_datetime"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="product_variant_history_tree" model="ir.ui.view">
+            <field name="name">product.variant.history.tree</field>
+            <field name="model">product.variant.history</field>
+            <field name="arch" type="xml">
+                <tree string="Product Purchase History" create="false" edit="false">
+                    <field name="product_id"/>
+                    <field name="uom_id"/>
+                    <field name="product_tmpl_id"/>
+                    <field name="value"/>
+                    <field name="effective_datetime"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_product_variant_history" model="ir.actions.act_window">
+            <field name="name">Products Variants History</field>
+            <field name="res_model">product.variant.history</field>
+            <field name="view_mode">tree</field>
+        </record>
+
+        <menuitem id="menu_product_variant_history"
+                  name="Product Variant History" sequence="3"
+                  parent="stock.menu_stock_inventory_control"
+                  action="action_product_variant_history"/>
+
+    </data>
+</odoo>
