@@ -24,13 +24,18 @@ class InheritStockPicking(models.Model):
                 avg_price = self.env['product.variant.history'].search([('product_id', '=', record.product_id.id)],
                                                                        order='effective_datetime DESC', limit=1)
 
+                if 'date_done' in record.picking_id:
+                    date_done = record.picking_id.date_done
+                else:
+                    date_done = datetime.now()
+
                 avg = (sum * avg_price.value + record.ordered_qty * record.price_unit) / (sum + record.ordered_qty)
                 self.env['product.variant.history'].create({
                     'product_id': record.product_id.id,
                     'product_tmpl_id': record.product_id.product_tmpl_id.id,
                     'uom_id': record.product_id.uom_id.id,
                     'company_id': record.company_id.id,
-                    'effective_datetime': datetime.now(),
+                    'effective_datetime': date_done,
                     'value': round(avg, 2),
                 })
                 record.product_id.write({'standard_price': round(avg, 2)})
